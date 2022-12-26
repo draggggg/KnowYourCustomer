@@ -1,7 +1,7 @@
 numpy
+matplotlib
+pillow
 opencv-python
 easyocr
 ArabicOcr
-pillow
 pytesseract
-matplotlib
