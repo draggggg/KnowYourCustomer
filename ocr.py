@@ -75,3 +75,4 @@ plt.imshow(region_Nom)
 
 NomCI = pytesseract.image_to_string(region_Nom)
 print(NomCI)
+# we can apply it for all the attributes/regions of the ID 
