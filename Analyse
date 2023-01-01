@@ -1,0 +1,65 @@
+
+
+import cv2
+import numpy as np
+
+     
+
+image = cv2.imread("/content/Carte d'identité tunisienne.jpeg")
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+faces = face_cascade.detectMultiScale(image, 1.3, 5)
+for (x, y, w, h) in faces:
+    if x > image.shape[1] // 2:
+        corrected = cv2.flip(image, 1)
+    else:
+        corrected = image
+
+for (x, y, w, h) in faces:
+    face_rect = (x, y, w, h)
+    if face_rect[1] > 0.15 * image.shape[0] and face_rect[1] < 0.85 * image.shape[0]:
+      cv2.putText(image, 'La photo est bien placée', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    else:
+        cv2.putText(image, 'La photo n\'est pas bien placée', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+    cv2.imshow('Carte nationale', image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+
+face_rect=cv2.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
+
+if face_rect[1].any() > 0.15 * image.shape[0] and face_rect[1].any() < 0.85 * image.shape[0]:
+      cv2.putText(image, 'La photo est bien placée', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+else:
+      cv2.putText(image, 'La photo n\'est pas bien placée', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+cv2.imshow('Carte nationale', image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+     
+
+#####
+
+carte_id = cv2.imread("/content/Carte d'identité tunisienne.jpeg")
+gray_carte_id = cv2.cvtColor(carte_id, cv2.COLOR_BGR2GRAY)
+threshold, threshold_carte_id = cv2.threshold(gray_carte_id, 127, 255, cv2.THRESH_BINARY)
+edges_carte_id = cv2.Canny(threshold_carte_id, 100, 200)
+contours_carte_id, hierarchy = cv2.findContours(edges_carte_id, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+for contour in contours_carte_id:
+    x, y, w, h = cv2.boundingRect(contour)
+x,y,w,h
+hierarchy
+
+#####
+
+passeport = cv2.imread("/content/Passeport tunisien.jpeg")
+gray_passeport = cv2.cvtColor(passeport, cv2.COLOR_BGR2GRAY)
+threshold2, threshold_passeport = cv2.threshold(gray_carte_id, 127, 255, cv2.THRESH_BINARY)
+edges_passeport = cv2.Canny(threshold_passeport, 100, 200)
+contours_passeport, hierarchy = cv2.findContours(edges_passeport, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+for contour in contours_passeport:
+    a, b, c, d = cv2.boundingRect(contour)
+a,b,c,d
+hierarchy
+
